@@ -1,5 +1,7 @@
 package com.fe.mobile;
 
+import com.fe.mobile.calendar.ui.CalendarFragment;
+import com.fe.mobile.events.ui.EventFragment;
 import com.fe.mobile.news.ui.NewsFragment;
 
 import java.util.ArrayList;
@@ -13,8 +15,10 @@ public class Config {
         
 		//DONT MODIFY ABOVE THIS LINE
 		
-		i.add(new NavItem("Seccion", NavItem.SECTION));
-        i.add(new NavItem("Noticias", R.drawable.ic_details, NavItem.ITEM, NewsFragment.class, "http://10.2.2.113/WebUNJu/php/noticias2.php?IdNew=null"));
+		i.add(new NavItem("Secciones", NavItem.SECTION));
+        i.add(new NavItem("Noticias", R.drawable.news,  NavItem.ITEM, NewsFragment.class, "http://10.2.0.3/php/noticias2.php?IdNew=null"));
+        i.add(new NavItem("Eventos" ,  R.drawable.evento, NavItem.ITEM, EventFragment.class,"http://10.2.0.3/php/evento2.php?idEvent=null"));
+        i.add(new NavItem("Calendario",R.drawable.evento, NavItem.ITEM, CalendarFragment.class,"http://10.2.0.3/php/calenar.php?idCalendar=null"));
 
         /*i.add(new NavItem("Uploaded Videos", R.drawable.ic_details, NavItem.ITEM, VideosFragment.class, "UU7V6hW6xqPAiUfataAZZtWA,UC7V6hW6xqPAiUfataAZZtWA"));
         i.add(new NavItem("Liked Videos", R.drawable.ic_details, NavItem.ITEM, VideosFragment.class, "LL7V6hW6xqPAiUfataAZZtWA"));

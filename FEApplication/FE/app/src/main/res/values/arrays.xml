@@ -13,5 +13,11 @@
         <item>16</item>
         <item>12</item>
         <item>7</item>
-    </string-array>      
+    </string-array>
+
+
+    <string-array name="calendar">
+        <item>Calendario</item>
+        <item>Calendario Academico</item>
+    </string-array>
 </resources>

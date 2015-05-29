@@ -15,6 +15,7 @@ public class NavItem {
     private int mDrawable;
     private String mData;
     private int mType;
+    private String image;
     private Class<? extends Fragment> mFragment;
 
     public NavItem(String text, int drawable, int type, Class<? extends Fragment> fragment, String data) {

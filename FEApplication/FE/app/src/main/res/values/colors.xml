@@ -22,5 +22,20 @@
     <color name="dim_gray">#696969</color>
     <color name="light_gray">#BDBDBD</color>
     <color name="dark_gray">#292929</color>
-    
+
+    <!-- calendar color -->
+    <color name="custom_header_text">#85B100</color>
+    <color name="custom_selected">#A8D324</color>
+    <color name="custom_background">#F0F8DB</color>
+    <color name="custom_background_today">#FF9105</color>
+    <color name="custom_background_disabled">#F0F8DB</color>
+    <color name="custom_text_selected">#FFFFFFFF</color>
+    <color name="custom_text_inactive">#7f778088</color>
+    <color name="transparent">#00000000</color>
+
+
+    <!-- calendar 2 -->
+    <color name="sample_primary">#4590bd</color>
+    <color name="sample_accent">#88bfcb</color>
+
 </resources>

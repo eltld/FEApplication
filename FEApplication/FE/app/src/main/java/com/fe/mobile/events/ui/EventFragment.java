@@ -1,4 +1,4 @@
-package com.fe.mobile.news.ui;
+package com.fe.mobile.events.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -26,10 +26,9 @@ import com.fe.mobile.Helper;
 import com.fe.mobile.MainActivity;
 import com.fe.mobile.R;
 import com.fe.mobile.ServiceHandler;
-import com.fe.mobile.db.dao.NewDao;
-import com.fe.mobile.news.New;
-import com.fe.mobile.news.NewAdapter;
-import com.fe.mobile.news.NewJson;
+import com.fe.mobile.events.Event;
+import com.fe.mobile.events.EventAdapter;
+import com.fe.mobile.events.EventJson;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,18 +38,18 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Created by David Garcia on 23/04/2015.
+ * Created by David Garcia on 06/05/2015.
  */
-public class NewsFragment extends Fragment {
+public class EventFragment extends Fragment {
 
-    private ArrayList<New> newsList = null;
-    private ArrayList<NewJson> newsJson=null;
+
+    private ArrayList<Event> eventsList = null;
+    private ArrayList<EventJson> eventJson =null;
     private ListView feedListView = null;
     private View footerView;
     private Activity mAct;
-    private NewAdapter newAdapter = null;
+    private EventAdapter eventAdapter = null;
 
     private LinearLayout ll;
     RelativeLayout pDialog;
@@ -75,28 +74,26 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //layout linear layoutof fragment_news
-        ll = (LinearLayout) inflater.inflate(R.layout.fragment_news_list, container, false);
+        ll = (LinearLayout) inflater.inflate(R.layout.fragment_event_list, container, false);
         setHasOptionsMenu(true);
 
-
+        System.out.println("apiurl");
         apiurl = this.getArguments().getString(MainActivity.DATA);
-
+        System.out.println("apiurl "+apiurl);
         baseurl=apiurl;
 
-
         footerView = inflater.inflate(R.layout.listview_footer, null);
-        feedListView= (ListView) ll.findViewById(R.id.custom_list);
+        feedListView= (ListView) ll.findViewById(R.id.events_list);
         feedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position,	long id) {
                 Object o = feedListView.getItemAtPosition(position);
-                New newItem  = (New) o;
-                System.out.println("onItemClick : "+newItem.toString());
+                Event eventItem  = (Event) o;
+                System.out.println("onItemClick : "+eventItem.toString());
 
-                Intent intent = new Intent(mAct, NewsDetailActivity.class);
-                intent.putExtra("newItem", newItem);
-                //intent.putExtra("apiurl", apiurl);
+                Intent intent = new Intent(mAct, EventDetailActivity.class);
+                intent.putExtra("eventItem", eventItem);
                 startActivity(intent);
             }
         });
@@ -105,21 +102,25 @@ public class NewsFragment extends Fragment {
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
 
+                System.out.println("setOnScrollListener");
+                System.out.println("fistVisibleItem : "+ firstVisibleItem + "visibleItemCount : "+
+                        visibleItemCount+ " totalItemCount : "+totalItemCount);
 
-                if (newAdapter == null)
+                if (eventAdapter == null)
                     return ;
 
-                if (newAdapter.getCount() == 0)
+                if (eventAdapter.getCount() == 0)
                     return ;
 
-               int l = visibleItemCount + firstVisibleItem;
+                System.out.println("isLoading : "+isLoading);
+                int l = visibleItemCount + firstVisibleItem;
                 pages=0;
                 /*if (l >= totalItemCount && !isLoading && curpage <= pages) {
                     System.out.println("new more data");
                     new DownloadFilesTask(baseurl, false).execute();
                 }*/
                 if (l >= totalItemCount && !isLoading) {
-                    baseurl="http://10.2.2.113/WebUNJu/php/noticias2.php?IdNew=133";
+                    baseurl="http://10.2.2.113/WebUNJu/php/eventos2.php?IdEvento=1";
                     System.out.println("new more data");
                     new DownloadFilesTask(baseurl, false).execute();
                 }
@@ -146,18 +147,15 @@ public class NewsFragment extends Fragment {
 
 
 
-    public void updateList(boolean initialload) {
-         System.out.println("updateList : "+initialload);
-        NewDao newDao=new NewDao(this.getActivity());
-        newDao.addList(newsList);
 
+    public void updateList(boolean initialload) {
+        System.out.println("updateList : "+initialload);
         if (initialload){
-            newAdapter = new NewAdapter(mAct, 0,0, newsList);
-            System.out.println("updateList : "+newAdapter);
-            feedListView.setAdapter(newAdapter);
+            eventAdapter = new EventAdapter(mAct, 0,0,  eventsList);
+            feedListView.setAdapter(eventAdapter);
         } else {
-            newAdapter.addAll(newsList);
-            newAdapter.notifyDataSetChanged();
+            eventAdapter.addAll(eventsList);
+            eventAdapter.notifyDataSetChanged();
         }
     }
 
@@ -189,8 +187,8 @@ public class NewsFragment extends Fragment {
 
                 curpage = 1;
 
-                if (null != newsList){
-                    newsList.clear();
+                if (null !=  eventsList){
+                     eventsList.clear();
                 }
                 if (null != feedListView){
                     feedListView.setAdapter(null);
@@ -206,8 +204,8 @@ public class NewsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
 
-            System.out.println("onPostExecute : "+newsList.size());
-            if (null != newsList) {
+            System.out.println("onPostExecute : " + eventsList.size());
+            if (null !=  eventsList) {
                 updateList(initialload);
             } else {
                 Helper.noConnection(mAct, true);
@@ -228,7 +226,11 @@ public class NewsFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-               Log.v("INFO", "Step 0, started");
+            //String url = params[0];
+            //url = url + Integer.toString(curpage);
+            //curpage = curpage + 1;
+
+            Log.v("INFO", "Step 0, started");
             // getting JSON string from URL
 
             System.out.println("url => "+url);
@@ -238,39 +240,46 @@ public class NewsFragment extends Fragment {
             try {
                 String jsonString = serviceHandler.makeServiceCall(
                         url, serviceHandler.GET);
-
+                Log.d("JSON", jsonString);
                 Gson gson=new Gson();
                 //toJson
-                Type tipoList = new TypeToken<List<NewJson>>(){}.getType();
-                newsJson=new ArrayList<NewJson>();
-                newsJson= gson.fromJson(jsonString,tipoList);
-                newsList=new ArrayList<New>();
-                 for(NewJson json : newsJson)
-                 {
-                     New newItem=new New();
-                     newItem.setId(json.getNoticia_id());
-                     newItem.setTitulo(json.getNoticia_titulo());
-                     newItem.setAutor("Tito");
-                     newItem.setDate(json.getNoticia_fecha());
-                     newItem.setAttachmentUrl(json.getNoticia_url_image());
-                     newItem.setContenido(json.getNoticia_cuerpo());
+                Type tipoList = new TypeToken<List<EventJson>>(){}.getType();
+                eventJson =new ArrayList<EventJson>();
+                eventJson = gson.fromJson(jsonString,tipoList);
+                //parse to String
+                eventsList=new ArrayList<Event>();
+                for(EventJson json : eventJson)
+                {
+                    Event eventItem=new Event();
+                    eventItem.setIdEvent(json.getEvent_idEvent());
+                    //nombre evento
+                    eventItem.setName(json.getEvent_name());
+                    //date del evento
+                    eventItem.setDate(json.getEvent_date());
+                    //message event
+                    eventItem.setMessage(json.getEvent_message());
+                    //username
+                    eventItem.setUsername(json.getEvent_username());
 
-                     String tmp=json.getNoticia_url_image();
-                     tmp=tmp.replace("./imgnotis/","");
 
 
-                     newItem.setThumbnailUrl("http://10.2.0.3/noticias/imgnotis/"+tmp);
+                    /*String tmp=json.getNoticia_url_image();
+                    tmp=tmp.replace("./imgnotis/","");
+                    System.out.println("tmp : "+tmp);
+                    */
 
-                     newsList.add(newItem);
-                 }
+                    //newItem.setThumbnailUrl("http://10.2.0.3/noticias/imgnotis/"+tmp);
 
+                     eventsList.add(eventItem);
+                }
+                System.out.println("newsJons size : "+ eventJson.size());
 
             }catch (Exception ex) {
 
                 System.out.println("ex  : "+ex.toString());
 
             }
-                // se comento esta lineaJSONObject json = getJSONFromUrl(url);
+            // se comento esta lineaJSONObject json = getJSONFromUrl(url);
             Log.v("INFO", "Step 2, got JsonObjoct");
             //parsing json data
             //parseJson(json);
@@ -282,8 +291,6 @@ public class NewsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-       System.out.println("Refrescar");
-
         inflater.inflate(R.menu.refresh_menu, menu);
 
         //set & get the search button in the actionbar
@@ -344,7 +351,7 @@ public class NewsFragment extends Fragment {
 
             case R.id.refresh:
                 if (!isLoading){
-                    baseurl = apiurl;
+                    baseurl = pageurl;
                     new DownloadFilesTask(baseurl, true).execute();
                 } else {
                     Toast.makeText(mAct, getString(R.string.already_loading), Toast.LENGTH_LONG).show();
@@ -353,5 +360,7 @@ public class NewsFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
 }

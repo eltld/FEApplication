@@ -126,9 +126,12 @@ public class NavDrawerAdapter extends
 		textView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mNavDrawerCallbacks != null)
-					mNavDrawerCallbacks.onNavigationDrawerItemSelected(i,
-							mData.get(i));
+				if (mNavDrawerCallbacks != null) {
+                    mNavDrawerCallbacks.onNavigationDrawerItemSelected(i,
+                            mData.get(i));
+
+
+                }
 			}
 		});
 	}
