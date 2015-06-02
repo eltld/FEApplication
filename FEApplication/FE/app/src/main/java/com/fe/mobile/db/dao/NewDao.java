@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.fe.mobile.db.ConstantDatabase;
 import com.fe.mobile.db.FeDatabaseOpenHelper;
@@ -74,8 +75,30 @@ public class NewDao {
     public New getItem(Long idNew)
     {
 
+        String selectQuery = "SELECT * FROM "+ConstantDatabase.T_NEW+"  WHERE "+ ConstantDatabase.NEW_ID+"="+idNew;
 
-        return null;
+
+        Cursor c = myDb.rawQuery(selectQuery, null);
+
+        if (c != null)
+         {
+           if(c.moveToFirst())
+           {
+
+
+               
+           }
+
+            c.moveToFirst();
+
+        New newItem = new New();
+
+        .setId(c.getInt(c.getColumnIndex(KEY_ID)));
+        td.setNote((c.getString(c.getColumnIndex(KEY_TODO))));
+        td.setCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+
+        return td;
+           }
     }
 
 

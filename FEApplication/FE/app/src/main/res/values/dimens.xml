@@ -1,0 +1,30 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <dimen name="navigation_drawer_width">240dp</dimen>
+
+
+
+    <!-- Toolbar -->
+    <!-- <dimen name="navigation_drawer_width">200dp</dimen>-->
+    <dimen name="toolbar_elevation">4dp</dimen>
+
+    <!-- preferenceFragment -->
+    <dimen name="preference_fragment_padding_bottom">0dp</dimen>
+    <dimen name="preference_fragment_padding_side">16dp</dimen>
+    <integer name="preference_fragment_scrollbarStyle">0x02000000</integer>
+
+    <!-- Defaults -->
+    <dimen name="activity_horizontal_margin">6dp</dimen>
+    <dimen name="activity_detail_horizontal_margin">20dp</dimen>
+    <dimen name="activity_vertical_margin">6dp</dimen>
+    <dimen name="image_height_news">150dp</dimen>
+    <dimen name="image_height_youtube">200dp</dimen>
+
+    <!-- dimen calednar -->
+    <dimen name="dimen_margin_circle">4dp</dimen>
+    <dimen name="dimen_margin_circle.negative">-4dp</dimen>
+
+</resources>
