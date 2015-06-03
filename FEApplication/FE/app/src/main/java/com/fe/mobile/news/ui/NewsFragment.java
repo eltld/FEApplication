@@ -52,6 +52,9 @@ public class NewsFragment extends Fragment {
     private Activity mAct;
     private NewAdapter newAdapter = null;
 
+    private Long lastIdInsert;
+
+
     private LinearLayout ll;
     RelativeLayout pDialog;
 
@@ -119,8 +122,9 @@ public class NewsFragment extends Fragment {
                     new DownloadFilesTask(baseurl, false).execute();
                 }*/
                 if (l >= totalItemCount && !isLoading) {
-                    baseurl="http://10.2.2.113/WebUNJu/php/noticias2.php?IdNew=133";
-                    System.out.println("new more data");
+                    System.out.println("l : "+l + "totalItemCount : "+totalItemCount);
+                    baseurl="http://10.2.0.3/phpUnju2/noticias2.php?IdNew="+lastIdInsert;
+
                     new DownloadFilesTask(baseurl, false).execute();
                 }
             }
@@ -263,6 +267,10 @@ public class NewsFragment extends Fragment {
 
                      newsList.add(newItem);
                  }
+
+               //almaceno el ultimo id de la noticia
+                System.out.println("Last id insert : "+newsJson.get(newsList.size()-1).getNoticia_id());
+               lastIdInsert= newsJson.get(newsJson.size()-1).getNoticia_id();
 
 
             }catch (Exception ex) {

@@ -33,6 +33,9 @@ public class FeDatabaseOpenHelper extends SQLiteOpenHelper {
     }
 
     public SQLiteDatabase openDatabase() {
+
+        System.out.println("OpenDatabase");
+
         File dbFile = context.getDatabasePath(DB_NAME);
 
         if (!checkDataBase()) { //si no existe la database

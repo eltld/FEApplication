@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.fe.mobile.db.ConstantDatabase;
 import com.fe.mobile.db.FeDatabaseOpenHelper;
@@ -35,8 +34,6 @@ public class NewDao {
 
     public NewDao(Context context)
     {
-
-        System.out.println("NewDao context");
         feDbHelper=new FeDatabaseOpenHelper(context);
 
     }
@@ -72,34 +69,31 @@ public class NewDao {
     }
 
 
-    public New getItem(Long idNew)
-    {
+    public New getItem(Long idNew) {
 
-        String selectQuery = "SELECT * FROM "+ConstantDatabase.T_NEW+"  WHERE "+ ConstantDatabase.NEW_ID+"="+idNew;
-
-
+        myDb=feDbHelper.openDatabase();
+        String selectQuery = "SELECT * FROM " + ConstantDatabase.T_NEW + "  WHERE " + ConstantDatabase.NEW_ID + "=" + idNew;
+        New newItem = new New();
         Cursor c = myDb.rawQuery(selectQuery, null);
 
-        if (c != null)
-         {
-           if(c.moveToFirst())
-           {
+        if (c != null) {
+            if (c.moveToFirst()) {
+                newItem.setId(c.getLong(c.getColumnIndex(ConstantDatabase.NEW_ID)));
+                newItem.setTitulo(c.getString(c.getColumnIndex(ConstantDatabase.NEW_TITULO)));
+                newItem.setDate(c.getString(c.getColumnIndex(ConstantDatabase.NEW_FECHA)));
+                newItem.setAutor(c.getString(c.getColumnIndex(ConstantDatabase.NEW_AUTOR)));
+                newItem.setContenido(c.getString(c.getColumnIndex(ConstantDatabase.NEW_CUERPO)));
+                newItem.setUrl(c.getString(c.getColumnIndex(ConstantDatabase.NEW_URL)));
 
+            }
 
-               
-           }
+        }else
+        newItem=null;
 
-            c.moveToFirst();
-
-        New newItem = new New();
-
-        .setId(c.getInt(c.getColumnIndex(KEY_ID)));
-        td.setNote((c.getString(c.getColumnIndex(KEY_TODO))));
-        td.setCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
-
-        return td;
-           }
+         myDb.close();
+         return newItem;
     }
+
 
 
     /**
@@ -115,11 +109,16 @@ public class NewDao {
 
             New newExiste=getItem(newItem.getId());
 
-            if(newExiste==null) //no existe agrego la noticia
-              add(newItem);
-            else
-              update(newItem);  //actualizo la noticia
-        }
+            if(newExiste==null) {
+               //no existe agrego la noticia
+               System.out.println("No existe la noticia");
+                add(newItem);
+            }
+             else {
+                System.out.println("Existe la noticia");
+                update(newItem);  //actualizo la noticia
+            }
+          }
     }
 
 
