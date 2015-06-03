@@ -54,6 +54,7 @@ public class NewsDetailActivity extends ActionBarActivity
         setContentView(R.layout.activity_news_details);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        mToolbar.setTitle("Noticias");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,7 +70,7 @@ public class NewsDetailActivity extends ActionBarActivity
                 id = newItem.getId();
                 title = newItem.getTitulo();
                 link = newItem.getUrl();
-                dateauthor = "Published at " + newItem.getDate() + " by " + newItem.getAutor();
+                dateauthor = "Publicado el " + newItem.getDate() + " por " + newItem.getAutor();
                 content=newItem.getContenido();
 
                 //getting a valid url, displaying it and setting a parralax listener. Also a fallback for no image.
@@ -263,9 +264,9 @@ public class NewsDetailActivity extends ActionBarActivity
     private void shareContent() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, title + "\n" + link);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, newItem.getTitulo() + "\n" +newItem.getUrl());
         sendIntent.setType("text/plain");
-        startActivity(Intent.createChooser(sendIntent, "Share using"));
+        startActivity(Intent.createChooser(sendIntent, "Compartir"));
     }
 
 

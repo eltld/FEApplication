@@ -22,10 +22,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.fe.mobile.Constant;
 import com.fe.mobile.Helper;
 import com.fe.mobile.MainActivity;
 import com.fe.mobile.R;
 import com.fe.mobile.ServiceHandler;
+import com.fe.mobile.db.ConstantDatabase;
 import com.fe.mobile.db.dao.NewDao;
 import com.fe.mobile.news.New;
 import com.fe.mobile.news.NewAdapter;
@@ -123,7 +125,7 @@ public class NewsFragment extends Fragment {
                 }*/
                 if (l >= totalItemCount && !isLoading) {
                     System.out.println("l : "+l + "totalItemCount : "+totalItemCount);
-                    baseurl="http://10.2.0.3/phpUnju2/noticias2.php?IdNew="+lastIdInsert;
+                    baseurl= Constant.SERVER+Constant.SERVER_FOLDER+"/noticias2.php?IdNew="+lastIdInsert;
 
                     new DownloadFilesTask(baseurl, false).execute();
                 }
@@ -258,14 +260,16 @@ public class NewsFragment extends Fragment {
                      newItem.setDate(json.getNoticia_fecha());
                      newItem.setAttachmentUrl(json.getNoticia_url_image());
                      newItem.setContenido(json.getNoticia_cuerpo());
+                     String url=Constant.SERVER+Constant.SERVER_FOLDER+"/noticias2.php?IdNew="+json.getNoticia_id();
+                     newItem.setUrl(url);
 
                      String tmp=json.getNoticia_url_image();
                      tmp=tmp.replace("./imgnotis/","");
 
 
-                     newItem.setThumbnailUrl("http://10.2.0.3/noticias/imgnotis/"+tmp);
+                     newItem.setThumbnailUrl(Constant.SERVER+"/noticias/imgnotis/"+tmp);
 
-                     newsList.add(newItem);
+                             newsList.add(newItem);
                  }
 
                //almaceno el ultimo id de la noticia

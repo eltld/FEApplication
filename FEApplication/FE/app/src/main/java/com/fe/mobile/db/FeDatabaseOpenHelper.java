@@ -188,6 +188,22 @@ public class FeDatabaseOpenHelper extends SQLiteOpenHelper {
         AssetManager assetManager = context.getResources().getAssets();
         InputStream in = null;
         OutputStream out = null;
+
+
+        // Path to the just created empty db
+        String outFileName = DB_PATH +"/"+ DB_NAME;
+        File databaseFile = new File( DB_PATH);
+        // check if databases folder exists, if not create one and its subfolders
+        if (!databaseFile.exists()){
+            Log.i("File","No existe dir");
+            databaseFile.mkdir();
+        }
+        else
+        {
+            Log.i("File","Existe directorio");
+
+        }
+
         try {
             in = assetManager.open(DB_NAME);
             out = new FileOutputStream(DB_PATH+DB_NAME);

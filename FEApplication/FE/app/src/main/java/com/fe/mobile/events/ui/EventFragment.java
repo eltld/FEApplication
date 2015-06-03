@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.fe.mobile.Constant;
 import com.fe.mobile.Helper;
 import com.fe.mobile.MainActivity;
 import com.fe.mobile.R;
@@ -120,7 +121,7 @@ public class EventFragment extends Fragment {
                     new DownloadFilesTask(baseurl, false).execute();
                 }*/
                 if (l >= totalItemCount && !isLoading) {
-                    baseurl="http://10.2.2.113/WebUNJu/php/eventos2.php?IdEvento=1";
+                    baseurl= Constant.SERVER+Constant.SERVER_FOLDER+"/eventos2.php?IdEvento=1";
                     System.out.println("new more data");
                     new DownloadFilesTask(baseurl, false).execute();
                 }
