@@ -121,6 +121,7 @@ public class NewsFragment extends Fragment {
                     System.out.println("new more data");
                     new DownloadFilesTask(baseurl, false).execute();
                 }*/
+                System.out.println("isLoading: "+isLoading);
                 if (l >= totalItemCount && !isLoading) {
                     System.out.println("l : "+l + "totalItemCount : "+totalItemCount);
                     baseurl= Constant.SERVER+Constant.SERVER_FOLDER+"/noticias2.php?IdNew="+lastIdInsert;

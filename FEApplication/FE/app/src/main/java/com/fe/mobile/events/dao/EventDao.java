@@ -18,7 +18,7 @@ public class EventDao {
 
     //TABLE EVENTO
     public static final String T_EVENTO="T_EVENTO";
-    public static final String EVE_ID="eve_id";
+    public static final String EVE_ID="id_eve";
     public static final String EVE_TITULO="eve_titulo";
     public static final String EVE_DATE="eve_date";
     public static final String EVE_USERNAME="eve_username";
@@ -56,7 +56,7 @@ public class EventDao {
         args.put(EVE_MESSAGE,eventItem.getMessage());
         args.put(EVE_URL,eventItem.getUrl());
         args.put(EVE_URLIMAGE,eventItem.getUrlImageDate());
-        myDb.insert(ConstantDatabase.T_NEW,null,args);
+        myDb.insert(ConstantDatabase.T_EVENTO,null,args);
 
         myDb.close();
 
@@ -123,7 +123,7 @@ public class EventDao {
                 add(eventItem);
             }
             else {
-                System.out.println("existe el evento");
+                System.out.println("existe el evento : "+eventItem.getIdEvent());
                 update(eventItem);  //actualizo el evento
             }
         }

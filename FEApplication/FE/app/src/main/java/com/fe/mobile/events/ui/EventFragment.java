@@ -121,8 +121,8 @@ public class EventFragment extends Fragment {
                     new DownloadFilesTask(baseurl, false).execute();
                 }*/
                 if (l >= totalItemCount && !isLoading) {
-                    baseurl= Constant.SERVER+Constant.SERVER_FOLDER+"/eventos2.php?IdEvento="+lastIdInsert;
-                    System.out.println("new more data");
+                    baseurl= Constant.SERVER+Constant.SERVER_FOLDER+"/evento2.php?idEvent="+lastIdInsert;
+                    System.out.println("baseurl : "+baseurl);
                     new DownloadFilesTask(baseurl, false).execute();
                 }
             }

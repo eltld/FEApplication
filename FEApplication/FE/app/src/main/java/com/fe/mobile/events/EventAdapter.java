@@ -77,7 +77,7 @@ public class EventAdapter extends ArrayAdapter<Event>
             TextView message = (TextView) convertView.findViewById(R.id.messageEvent);
             TextView data = (TextView) convertView.findViewById(R.id.dateEvent);
 
-            name.setText(event.getName());
+            name.setText(event.getTitulo());
             username.setText(event.getUsername());
             //username.setTag(tweet.getusername());
             //BitmapManager.getInstance().loadBitmap(tweet.geturlProfileImage(), imagem);

@@ -59,7 +59,7 @@ public  class ConstantDatabase {
 
 
     //TABLE EVENTO
-    public static final String T_EVENTO="evento";
+    public static final String T_EVENTO="T_EVENTO";
     public static final String EVENTO_ID="eve_id";
     public static final String EVENTO_TITULO="eve_titulo";
     public static final String EVENTO_BAJADA="eve_bajada";
