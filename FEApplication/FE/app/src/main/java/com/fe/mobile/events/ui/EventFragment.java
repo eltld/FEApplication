@@ -56,10 +56,9 @@ public class EventFragment extends Fragment {
     RelativeLayout pDialog;
 
     /** Configuration idNew ***/
-    Integer idNew=0;
+    Long lastIdInsert=new Long(0);
 
     Integer pages;
-    String perpage = "15";
     Integer curpage = 1;
 
     String apiurl;
@@ -121,7 +120,7 @@ public class EventFragment extends Fragment {
                     new DownloadFilesTask(baseurl, false).execute();
                 }*/
                 if (l >= totalItemCount && !isLoading) {
-                    baseurl= Constant.SERVER+Constant.SERVER_FOLDER+"/eventos2.php?IdEvento=1";
+                    baseurl= Constant.SERVER+Constant.SERVER_FOLDER+"/eventos2.php?IdEvento="+lastIdInsert;
                     System.out.println("new more data");
                     new DownloadFilesTask(baseurl, false).execute();
                 }
@@ -254,7 +253,7 @@ public class EventFragment extends Fragment {
                     Event eventItem=new Event();
                     eventItem.setIdEvent(json.getEvent_idEvent());
                     //nombre evento
-                    eventItem.setName(json.getEvent_name());
+                    eventItem.setTitulo(json.getEvent_name());
                     //date del evento
                     eventItem.setDate(json.getEvent_date());
                     //message event
@@ -262,19 +261,21 @@ public class EventFragment extends Fragment {
                     //username
                     eventItem.setUsername(json.getEvent_username());
 
+                    //se arma la url del evento
+                    String url=Constant.SERVER+Constant.SERVER_FOLDER+"/eventos2.php?IdNew="+json.getEvent_idEvent();
+                    eventItem.setUrl(url);
 
-
-                    /*String tmp=json.getNoticia_url_image();
+                    String tmp=json.getEvent_urlImageDate();
                     tmp=tmp.replace("./imgnotis/","");
-                    System.out.println("tmp : "+tmp);
-                    */
-
-                    //newItem.setThumbnailUrl("http://10.2.0.3/noticias/imgnotis/"+tmp);
-
-                     eventsList.add(eventItem);
+                    eventItem.setUrlImageDate(Constant.SERVER+"/noticias/imgnotis/"+tmp);
+                    eventsList.add(eventItem);
                 }
-                System.out.println("newsJons size : "+ eventJson.size());
 
+                //almaceno el ultimo id del evento
+                /*System.out.println("Last id insert : "+eventsList.get(eventsList.size()-1).getIdEvent());
+                lastIdInsert= eventJson.get(eventJson.size()-1).getEvent_idEvent();
+                System.out.println("newsJons size : "+ eventJson.size());
+                */
             }catch (Exception ex) {
 
                 System.out.println("ex  : "+ex.toString());

@@ -27,8 +27,7 @@ import com.fe.mobile.Helper;
 import com.fe.mobile.MainActivity;
 import com.fe.mobile.R;
 import com.fe.mobile.ServiceHandler;
-import com.fe.mobile.db.ConstantDatabase;
-import com.fe.mobile.db.dao.NewDao;
+import com.fe.mobile.news.dao.NewDao;
 import com.fe.mobile.news.New;
 import com.fe.mobile.news.NewAdapter;
 import com.fe.mobile.news.NewJson;
@@ -64,7 +63,6 @@ public class NewsFragment extends Fragment {
     Integer idNew=0;
 
     Integer pages;
-    String perpage = "15";
     Integer curpage = 1;
 
     String apiurl;
@@ -260,6 +258,8 @@ public class NewsFragment extends Fragment {
                      newItem.setDate(json.getNoticia_fecha());
                      newItem.setAttachmentUrl(json.getNoticia_url_image());
                      newItem.setContenido(json.getNoticia_cuerpo());
+
+                     //se arma la url de la noticia
                      String url=Constant.SERVER+Constant.SERVER_FOLDER+"/noticias2.php?IdNew="+json.getNoticia_id();
                      newItem.setUrl(url);
 

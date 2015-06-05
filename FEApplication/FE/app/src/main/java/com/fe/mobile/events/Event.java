@@ -7,12 +7,15 @@ import java.io.Serializable;
  */
 public class Event implements Serializable {
 
+    private String titulo;
     private String name;
     private String username;
-    private String urlImageDate;
     private String message;
     private String date;
     private Long idEvent;
+    private String url;
+    private String urlImageDate;
+
 
 
     public String getName() {
@@ -61,6 +64,22 @@ public class Event implements Serializable {
 
     public void setIdEvent(Long idEvent) {
         this.idEvent = idEvent;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override

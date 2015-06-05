@@ -1,4 +1,4 @@
-package com.fe.mobile.db.dao;
+package com.fe.mobile.news.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -73,24 +73,26 @@ public class NewDao {
 
         myDb=feDbHelper.openDatabase();
         String selectQuery = "SELECT * FROM " + ConstantDatabase.T_NEW + "  WHERE " + ConstantDatabase.NEW_ID + "=" + idNew;
-        New newItem = new New();
+        New newItem = null;
         Cursor c = myDb.rawQuery(selectQuery, null);
 
         if (c != null) {
             if (c.moveToFirst()) {
+                newItem=new New();
                 newItem.setId(c.getLong(c.getColumnIndex(ConstantDatabase.NEW_ID)));
                 newItem.setTitulo(c.getString(c.getColumnIndex(ConstantDatabase.NEW_TITULO)));
                 newItem.setDate(c.getString(c.getColumnIndex(ConstantDatabase.NEW_FECHA)));
                 newItem.setAutor(c.getString(c.getColumnIndex(ConstantDatabase.NEW_AUTOR)));
                 newItem.setContenido(c.getString(c.getColumnIndex(ConstantDatabase.NEW_CUERPO)));
                 newItem.setUrl(c.getString(c.getColumnIndex(ConstantDatabase.NEW_URL)));
-
+                System.out.println("newItem : "+newItem.toString());
             }
 
         }else
         newItem=null;
 
          myDb.close();
+        System.out.println("return newItem : "+newItem.toString());
          return newItem;
     }
 
@@ -109,13 +111,13 @@ public class NewDao {
 
             New newExiste=getItem(newItem.getId());
 
-            if(newExiste==null) {
+            if(newExiste.getId()==null) {
                //no existe agrego la noticia
                System.out.println("No existe la noticia");
                 add(newItem);
             }
              else {
-                System.out.println("Existe la noticia");
+                System.out.println("existe la noticia");
                 update(newItem);  //actualizo la noticia
             }
           }
