@@ -92,7 +92,6 @@ public class NewDao {
         newItem=null;
 
          myDb.close();
-        System.out.println("return newItem : "+newItem.toString());
          return newItem;
     }
 
@@ -111,7 +110,7 @@ public class NewDao {
 
             New newExiste=getItem(newItem.getId());
 
-            if(newExiste.getId()==null) {
+            if(newExiste==null) {
                //no existe agrego la noticia
                System.out.println("No existe la noticia");
                 add(newItem);

@@ -79,11 +79,12 @@ public class EventDao {
 
         myDb=feDbHelper.openDatabase();
         String selectQuery = "SELECT * FROM " + T_EVENTO + "  WHERE " + EVE_ID+ "=" + idEvent;
-        Event eventItem = new Event();
+        Event eventItem = null;
         Cursor c = myDb.rawQuery(selectQuery, null);
 
         if (c != null) {
             if (c.moveToFirst()) {
+                eventItem=new Event();
                 eventItem.setIdEvent(c.getLong(c.getColumnIndex(EVE_ID)));
                 eventItem.setTitulo(c.getString(c.getColumnIndex(EVE_TITULO)));
                 eventItem.setDate(c.getString(c.getColumnIndex(EVE_DATE)));
@@ -97,7 +98,7 @@ public class EventDao {
             eventItem=null;
 
         myDb.close();
-        System.out.println("return eventItem : "+eventItem.toString());
+
         return eventItem;
     }
 

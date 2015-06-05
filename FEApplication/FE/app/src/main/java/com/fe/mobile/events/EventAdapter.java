@@ -58,7 +58,7 @@ public class EventAdapter extends ArrayAdapter<Event>
     public View getView(int position, View convertView, ViewGroup parent) {
 
         Event eventItem = (Event) listData.get(position);
-        System.out.println("getView : "+eventItem.toString());
+
         ImageLoader imageLoader = Helper.initializeImageLoader(mContext);
 
         //Aca especifica si es la primera posicion de la noticia

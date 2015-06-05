@@ -30,6 +30,7 @@ import com.fe.mobile.ServiceHandler;
 import com.fe.mobile.events.Event;
 import com.fe.mobile.events.EventAdapter;
 import com.fe.mobile.events.EventJson;
+import com.fe.mobile.events.dao.EventDao;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -150,6 +151,9 @@ public class EventFragment extends Fragment {
 
     public void updateList(boolean initialload) {
         System.out.println("updateList : "+initialload);
+        EventDao eventDao=new EventDao(this.getActivity());
+        eventDao.addList(eventsList);
+        System.out.println("updateList : "+initialload);
         if (initialload){
             eventAdapter = new EventAdapter(mAct, 0,0,  eventsList);
             feedListView.setAdapter(eventAdapter);
@@ -268,14 +272,15 @@ public class EventFragment extends Fragment {
                     String tmp=json.getEvent_urlImageDate();
                     tmp=tmp.replace("./imgnotis/","");
                     eventItem.setUrlImageDate(Constant.SERVER+"/noticias/imgnotis/"+tmp);
+
                     eventsList.add(eventItem);
                 }
 
                 //almaceno el ultimo id del evento
-                /*System.out.println("Last id insert : "+eventsList.get(eventsList.size()-1).getIdEvent());
+                System.out.println("Last id insert : "+eventsList.get(eventsList.size()-1).getIdEvent());
                 lastIdInsert= eventJson.get(eventJson.size()-1).getEvent_idEvent();
                 System.out.println("newsJons size : "+ eventJson.size());
-                */
+
             }catch (Exception ex) {
 
                 System.out.println("ex  : "+ex.toString());
